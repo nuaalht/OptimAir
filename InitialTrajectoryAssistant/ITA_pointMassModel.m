@@ -43,7 +43,7 @@ function ITA_pointMassModel(WP,configuration,dir,f)
     WP.numOfVirtualWP_ITA = numel(WP.ITA_virtualWPindices);
     
     % Generate natural cubic spline through all WP
-    generateTraj();
+    estimatedTraj = generateTraj();
     N = configuration.options.ITA_splinePoints;
     [smooth_north,smooth_east,smooth_up] = multiEvaluateSpline(estimatedTraj,N);
     
@@ -239,7 +239,7 @@ function ITA_pointMassModel(WP,configuration,dir,f)
                       repmat(80,WP.numOfWP_ITA,1),...
                       repmat(8,WP.numOfWP_ITA,1),...
                       zeros(WP.numOfWP_ITA,1)],...
-              'ColumnName',{'T (N)','V (m/s)','AoA (º)','Roll (º)'},...
+              'ColumnName',{'T (N)','V (m/s)','AoA (?)','Roll (?)'},...
               'ColumnEditable',true,...
               'Position',[710 10 280 480],...
               'ColumnWidth',{50 50 50 50},...
@@ -257,7 +257,7 @@ function ITA_pointMassModel(WP,configuration,dir,f)
         f.Visible = 'on';
     end
     
-    function generateTraj()
+    function estimatedTraj = generateTraj()
         estimatedTraj = cscvn([WP.ITA_north;WP.ITA_east;WP.ITA_up]);
     end
 
